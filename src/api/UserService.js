@@ -16,7 +16,7 @@ export async function getUser(userId) {
 }
 
 export async function updateUser(user) {
-  return await axios.post(API_URL, user);
+  return await axios.put(API_URL, user);
 }
 
 export async function deleteUser(userId) {

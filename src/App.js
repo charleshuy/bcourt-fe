@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import Header from "./components/Header";
 import UserList from "./components/user/UserList";
+import UserDetail from "./components/user/UserDetail";
 import "react-toastify/dist/ReactToastify.css";
-import { getUsers, saveUser } from "./api/UserService";
+import { getUsers, saveUser, updateUser } from "./api/UserService";
 import { getRoles } from "./api/RoleService"; // Import the function to fetch roles
 import { Routes, Route, Navigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
-function UserController() {
+function App() {
   const modalRef = useRef();
   const [data, setData] = useState({});
   const [roles, setRoles] = useState([]); // State for roles
@@ -83,8 +84,18 @@ function UserController() {
   const handleNewUser = async (event) => {
     event.preventDefault();
     try {
-      const response = await saveUser(values);
-      console.log(response);
+      const data = await saveUser(values);
+      console.log(data);
+      toggleModal(false);
+      getAllUsers();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const updateUser = async (user) => {
+    try {
+      const { data } = await updateUser(user);
+      console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -114,6 +125,10 @@ function UserController() {
                   getAllUsers={getAllUsers}
                 />
               }
+            />
+            <Route
+              path="/users/:userId"
+              element={<UserDetail updateUser={updateUser} />}
             />
           </Routes>
         </div>
@@ -216,4 +231,4 @@ function UserController() {
   );
 }
 
-export default UserController;
+export default App;

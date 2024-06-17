@@ -29,7 +29,7 @@ const User = ({ user }) => {
           <strong>
             <i className="bi bi-person"></i>
           </strong>{" "}
-          {user.roleName}
+          {user.role.roleName}
         </p>
       </div>
     </Link>
