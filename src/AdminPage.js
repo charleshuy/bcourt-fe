@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import {
   AppBar,
@@ -16,7 +16,6 @@ import {
   InputLabel,
   FormControl,
   Grid,
-  Box,
 } from "@mui/material";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -29,6 +28,7 @@ import {
   updateUser as updateUserAPI,
 } from "./api/UserService";
 import { getRoles } from "./api/RoleService";
+import { logout } from "./api/AuthService"; // Import logout function
 
 function AdminPage() {
   const [data, setData] = useState({});
@@ -123,6 +123,9 @@ function AdminPage() {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6">Admin Page</Typography>
+          <Button color="inherit" onClick={logout}>
+            Logout
+          </Button>
         </Toolbar>
       </AppBar>
       <Container>
@@ -152,7 +155,6 @@ function AdminPage() {
             </Button>
           </Grid>
         </Grid>
-        {/* <Header nbOfContacts={data.totalElements} /> */}
         <Routes>
           <Route path="/" element={<Navigate to={"/users"} />} />
           <Route
